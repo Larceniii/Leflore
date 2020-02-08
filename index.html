@@ -1,0 +1,207 @@
+<html>
+<head>
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Gugi|IBM+Plex+Sans+Condensed');
+/*
+ FORMATTING FOR CODEPEN
+	https://discord.gg/bXQSXZJ
+*/
+
+html,body {
+  height: 500px;
+  width: 100%;
+  margin: 0;
+  //display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  //font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-family: 'Gugi', cursive;
+  font-size:20px;
+}
+
+.col {
+  height: 100%;
+}
+
+div[class*=container] {
+  text-align: center;
+  width: 100%;
+  height: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-1 { background: #333; }
+.container-2 { background: #6441A4; }
+.container-3 { background: #ffd300; }
+.container-3 .btn {border-color:black; color:black  !important;}
+.container-3 .btn-two::before, .container-3 .btn-two::after { border: 3px solid rgba(0, 0, 0, 0.25); }
+.container-4 { background: rgb(204, 0, 0); }
+.container-42 { background: rgb(0, 193, 204); }
+.container-43 { background: #212c3d; }
+.container-5 { background: #7B6D8D; }
+.container-6 { background: #6441A4; }
+
+/*
+ BUTTON STYLING
+*/
+
+
+a {
+    color:white;
+    text-decoration: none;
+  }
+.btn {
+  position: relative;
+  color: white;
+  width: 256px;
+  height: 64px;
+  line-height: 64px;
+  transition: all 0.3s;
+  span {
+    transition: all 0.3s;
+    tranform: scale(1, 1);
+  }
+}
+
+.btn::before, .btn::after {
+  content: '';
+  position: absolute;
+  transition: all 0.3s;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.btn-one::before {
+	left: 4px;
+	z-index: 1;
+
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0.1, 1);
+}
+
+.btn-one:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btn-one::after {
+  transition: all 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-one:hover::after {
+  transform: scale(1, .1);
+  opacity: 0;
+}
+
+/* BTN TWO */
+.btn-two::before, .btn-two::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+	height: 100%;
+  bottom: 0;
+	left: 0;
+	z-index: 1;
+  transition: all 0.3s;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+}
+
+.btn-two:hover::after {
+  animation-name: rotatecw;
+  animation-duration: 2s;
+}
+.btn-two:hover::before {
+  animation-name: rotateccw;
+  animation-duration: 3s;
+}
+.btn-two:hover::after, .btn-two:hover::before {
+  left: 96px;
+  width: 64px;
+
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotatecw {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes rotateccw {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(-360deg);}
+}
+
+
+</style>
+<div class="col">
+  <a href="https://discord.gg/bXQSXZJ">
+  <div class="container-1">
+    <div class="btn btn-one">
+      <span>Leflore County Live Discord</span>
+    </div>
+  </div></a>
+
+  <a href="http://TWITCH.TV/LiveBitcoinPrice">
+    <div class="container-2">
+    <div class="btn btn-two">
+      <span> @TWITCH.TV</span>
+    </div>
+  </div></a>
+
+  <a href="http://DLive.TV/BitcoinPrice">
+    <div class="container-3">
+    <div class="btn btn-two">
+      <span>@DLive.ttv</span>
+    </div>
+  </div></a>
+
+
+<!--div class="col"-->
+  <a href="https://www.youtube.com/channel/UCNDAOpRLRikNOiah45YfXiQ/live">
+  <div class="container-4">
+    <div class="btn btn-two">
+      <span>@YouTube</span>
+    </div>
+  </div></a>
+
+  <a href="https://www.periscope.tv/RetroNews">
+  <div class="container-42">
+    <div class="btn btn-two">
+      <span>@Pariscope</span>
+    </div>
+  </div></a>
+
+  <a href="https://mixer.com/BitcoinPrice">
+  <div class="container-43">
+    <div class="btn btn-two">
+      <span>@Mixer</span>
+    </div>
+  </div></a>
+
+  <a href="http://CyberPunk.Pizza">
+  <div class="container-5">
+    <div class="btn btn-two">
+      <span>CyberPunk Pizza</span>
+    </div>
+  </div></a>
+
+  <a href="http://TWITCH.TV/MickFlyLive">
+  <div class="container-6">
+    <div class="btn btn-two">
+      <span>Thank you!</span>
+    </div>
+  </div></a>
+
+</div>
+
+
+</html>
