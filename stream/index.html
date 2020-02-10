@@ -1,0 +1,296 @@
+<html>
+<head>
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+/*
+ FORMATTING FOR CODEPEN
+	https://discord.gg/bXQSXZJ
+*/
+
+/*
+
+ DARK NAV
+
+ */
+ html, body, div, span, applet, object, iframe,
+ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+ a, abbr, acronym, address, big, cite, code,
+ del, dfn, em, img, ins, kbd, q, s, samp,
+ small, strike, strong, sub, sup, tt, var,
+ b, u, i, center,
+ dl, dt, dd, ol, ul, li,
+ fieldset, form, label, legend,
+ table, caption, tbody, tfoot, thead, tr, th, td,
+ article, aside, canvas, details, embed,
+ figure, figcaption, footer, header, hgroup,
+ menu, nav, output, ruby, section, summary,
+ time, mark, audio, video {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-size: 104%;
+   font-family: "Raleway" !important;
+   vertical-align: baseline;
+ }
+
+ article, aside, details, figcaption, figure,
+ footer, header, hgroup, menu, nav, section {
+   display: block;
+ }
+
+ body {
+   line-height: 1;
+ }
+
+ ol, ul {
+   list-style: none;
+ }
+
+ blockquote, q {
+   quotes: none;
+ }
+
+ blockquote:before, blockquote:after,
+ q:before, q:after {
+   content: '';
+   content: none;
+ }
+
+ table {
+   border-collapse: collapse;
+   border-spacing: 0;
+ }
+
+ .about {
+   margin: 70px auto 40px;
+   padding: 8px;
+   width: 260px;
+   font: 10px/18px 'IBM Plex Sans Condensed', Arial, sans-serif;
+   color: #bbb;
+   text-align: center;
+   text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+   background: #383838;
+   background: rgba(34, 34, 34, 0.8);
+   border-radius: 4px;
+   background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+   background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+   background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+   -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 0 6px rgba(0, 0, 0, 0.4);
+   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 0 6px rgba(0, 0, 0, 0.4);
+ }
+ .about a {
+   color: #eee;
+   text-decoration: none;
+   border-radius: 2px;
+   -webkit-transition: background 0.1s;
+   -moz-transition: background 0.1s;
+   -o-transition: background 0.1s;
+   transition: background 0.1s;
+ }
+ .about a:hover {
+   text-decoration: none;
+   background: #555;
+   background: rgba(255, 255, 255, 0.15);
+ }
+
+ .about-links {
+   height: 30px;
+ }
+ .about-links > a {
+   float: left;
+   width: 50%;
+   line-height: 30px;
+   font-size: 12px;
+ }
+
+ .about-author {
+   margin-top: 5px;
+ }
+ .about-author > a {
+   padding: 1px 3px;
+   margin: 0 -1px;
+ }
+
+ body {
+   font: 13px/18px 'IBM Plex Sans Condensed', Tahoma, Verdana, sans-serif;
+   color: #404040;
+   background: #ecedef;
+ }
+
+ .container {
+   margin: 0 auto;
+   width: 650px;
+ }
+
+ header {
+   padding-top: 100px;
+   background: #3d4144 0 0 repeat;
+   border-bottom: 5px solid #ddd;
+ }
+
+ nav {
+   height: 36px;
+   background: #464b4c;
+   border-top: 1px solid #353939;
+   border-bottom: 1px solid #2e3131;
+   background-image: -webkit-linear-gradient(top, #464b4c, #3f4344);
+   background-image: -moz-linear-gradient(top, #464b4c, #3f4344);
+   background-image: -o-linear-gradient(top, #464b4c, #3f4344);
+   background-image: linear-gradient(to bottom, #464b4c, #3f4344);
+   -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+   box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+ }
+ nav a {
+   -webkit-transition: 0.1s ease-out;
+   -moz-transition: 0.1s ease-out;
+   -o-transition: 0.1s ease-out;
+   transition: 0.1s ease-out;
+   -webkit-transition-property: background-color, line-height;
+   -moz-transition-property: background-color, line-height;
+   -o-transition-property: background-color, line-height;
+   transition-property: background-color, line-height;
+ }
+ nav ul {
+   float: left;
+   border-left: 1px solid #353939;
+   border-left: 1px solid rgba(0, 0, 0, 0.2);
+   border-right: 1px solid #4d5354;
+   border-right: 1px solid rgba(255, 255, 255, 0.06);
+ }
+ nav li {
+   float: left;
+ }
+ nav a {
+   display: block;
+   padding: 0 20px;
+   line-height: 36px;
+   color: #ddd;
+   text-decoration: none;
+   text-shadow: 0 -1px #2e3131;
+   border-left: 1px solid #4d5354;
+   border-left: 1px solid rgba(255, 255, 255, 0.06);
+   border-right: 1px solid #353939;
+   border-right: 1px solid rgba(0, 0, 0, 0.2);
+   cursor: pointer;
+ }
+ nav a:hover {
+   background: #4d5354;
+   background: rgba(255, 255, 255, 0.05);
+ }
+ nav li.active a, nav li.active a:hover, nav a:active {
+   padding: 0 21px;
+   line-height: 33px;
+   color: #eee;
+   background: #323637;
+   border-left: 0;
+   border-right: 0;
+   border-bottom: 3px solid #48a9c0;
+   background-image: -webkit-linear-gradient(top, #484e4f, #323637);
+   background-image: -moz-linear-gradient(top, #484e4f, #323637);
+   background-image: -o-linear-gradient(top, #484e4f, #323637);
+   background-image: linear-gradient(to bottom, #484e4f, #323637);
+   -webkit-box-shadow: inset 0 -1px #151717, inset 0 -1px 8px rgba(0, 0, 0, 0.2);
+   box-shadow: inset 0 -1px #151717, inset 0 -1px 8px rgba(0, 0, 0, 0.2);
+ }
+ nav li.green a, nav li.green a:active {
+   border-bottom-color: #56c93d;
+ }
+ nav li.red a, nav li.red a:active {
+   border-bottom-color: #a54e49;
+ }
+ nav li.purple a, nav li.purple a:active {
+   border-bottom-color: #c052b9;
+ }
+ nav li.yellow a, nav li.yellow a:active {
+   border-bottom-color: #c0bb30;
+ }
+
+
+
+
+</style>
+
+
+<nav>
+  <div class="container">
+    <ul>
+      <li class="purple"><a href="https://discord.gg/gsqTpxf">Discord</a></li>
+      <li class="purple"><a href="https://heavenerledger.com">Heavener Ledger</a></li>
+      <li class="purple"><a href="https://www.youtube.com/channel/UCN6ZvL8ILN9tHs7K5FUV2JQ">Youtube</a></li>
+      <li class="active"><a href="http://Leflore.Live">http://Leflore.Live</a></li>
+      <li class="red"><a href="index.html">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="1920" height="960" type="text/html" src="https://www.youtube.com/embed/BSCHtVXf4PY?autoplay=1&fs=1&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=http://leflore.live">
+</iframe>
+
+
+
+<!--div class="col">
+  <a href="https://discord.gg/bXQSXZJ">
+  <div class="container-1">
+    <div class="btn btn-one">
+      <span>Leflore County Live Discord</span>
+    </div>
+  </div></a>
+
+  <a href="http://TWITCH.TV/LiveBitcoinPrice">
+    <div class="container-2">
+    <div class="btn btn-two">
+      <span> @TWITCH.TV</span>
+    </div>
+  </div></a>
+
+  <a href="http://DLive.TV/BitcoinPrice">
+    <div class="container-3">
+    <div class="btn btn-two">
+      <span>@DLive.ttv</span>
+    </div>
+  </div></a>
+
+
+<!--div class="col">
+  <a href="https://www.youtube.com/channel/UCNDAOpRLRikNOiah45YfXiQ/live">
+  <div class="container-4">
+    <div class="btn btn-two">
+      <span>@YouTube</span>
+    </div>
+  </div></a>
+
+  <a href="https://www.periscope.tv/RetroNews">
+  <div class="container-42">
+    <div class="btn btn-two">
+      <span>@Pariscope</span>
+    </div>
+  </div></a>
+
+  <a href="https://mixer.com/BitcoinPrice">
+  <div class="container-43">
+    <div class="btn btn-two">
+      <span>@Mixer</span>
+    </div>
+  </div></a>
+
+  <a href="http://CyberPunk.Pizza">
+  <div class="container-5">
+    <div class="btn btn-two">
+      <span>CyberPunk Pizza</span>
+    </div>
+  </div></a>
+
+  <a href="http://TWITCH.TV/MickFlyLive">
+  <div class="container-6">
+    <div class="btn btn-two">
+      <span>Thank you!</span>
+    </div>
+  </div></a>
+
+</div-->
+
+
+</html>

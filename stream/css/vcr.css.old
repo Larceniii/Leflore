@@ -1,0 +1,195 @@
+@font-face {
+    font-family: 'VCR';
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/225473/VCR_OSD_MONO_1.001.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+body {animation: 0.1s infinite linear glitch;}
+
+.flex { display: flex }
+.space-between { justify-content: space-between }
+.center { text-align: center }
+
+
+.leftbox {
+    float:left;
+    width: 33vw;
+    padding: 25px;
+    background-color: #ddd;
+    margin: 25px 25px 25px 5px;
+        font-size: 35px;
+        height: 84px;
+
+  }
+.rightbox {
+    float:right;
+    width: 33vw;
+    padding: 25px;
+    background-color: #ddd;
+    margin: 25px 25px 25px 5px;
+        font-size: 35px;
+        height: 84px;
+}
+.title {
+    background-color: orange;
+    width: 100vw;
+    padding: 30px !important;
+    font-size: 72px;
+    margin: 0 -10vw;
+}
+
+.title-purple {
+    background-color: #a605f9;
+    width: 100vw;
+    padding: 30px !important;
+    font-size: 72px;
+    margin: 0 -10vw;
+}
+
+.title-red {
+    background-color: #ca3a3a;
+    width: 100vw;
+    padding: 30px !important;
+    font-size: 72px;
+    margin: 0 -10vw;
+}
+.title-green {
+    background-color: #1db337;
+    width: 100vw;
+    padding: 30px !important;
+    font-size: 72px;
+    margin: 0 -10vw;
+}
+
+.title-black {
+    background-color: #18242d;
+    width: 100vw;
+    padding: 30px !important;
+    font-size: 72px;
+    margin: 0 -10vw;
+    color:#d0d0d0;
+}
+
+.title-pink {
+    background-color: #f905d3;
+    width: 100vw;
+    padding: 30px !important;
+    font-size: 72px;
+    margin: 0 -10vw;
+}
+
+.title-teal {
+    background-color: #268c90;
+    width: 100vw;
+    padding: 30px !important;
+    font-size: 72px;
+    margin: 0 -10vw;
+}
+
+
+.dateline-white {
+  margin: 0 -10vw;
+  background-color:#DDD;
+  color:#420420
+}
+
+.white     {
+  color: #F7F7F7;
+  filter: blur(0.4px);
+  /* animation: 0.1s infinite linear glitch; */
+  text-shadow: 0px 0px 3px #999;
+}
+
+.red       { color: #a30901; top: 5px; left: 15px; }
+.pink      { color: #d50bcf }
+.dark-blue { color: #003ab7 }
+.cyan      { color: #31e3e7 }
+.green     { color: #51bb13 }
+.gold{}
+
+.absolute{position: absolute}
+
+html {
+  /* Display & Box Model */
+  width:            100vw;
+  height:           100vh;
+  display:          flex;
+  justify-content:  center;
+  align-items:      center;
+  align-content:    center;
+  overflow: hidden;
+
+  /* Other */
+  background-color: #0c0c0c;
+}
+
+.screen {
+  /* Display & Box Model */
+  width:            100vw;
+  height:           100vh;
+  padding:          8px 10vw;
+
+  /* Positioning */
+  position:         relative;
+  z-index:          2;
+
+  /* Other */
+  font-family:      "VCR", monospace;
+  font-size:        42px;
+  background-color: #003ab7; /* #111; */
+}
+
+.play-container{
+  animation: 3s infinite linear glitch-vertical;
+}
+
+@keyframes glitch{
+  0%   { transform: translateX( 0.0px) }
+  25%  { transform: translateX(-0.5px) }
+  50%  { transform: translateX( 0.0px) }
+  75%  { transform: translateX( 0.5px) }
+  100% { transform: translateX( 0.0px) }
+}
+
+@keyframes glitch-vertical{
+  0%   { transform: translateY( 0.0px) }
+  49%  { transform: translateY( 0.0px) }
+  50%  { transform: translateY( -13.0px) }
+  51%  { transform: translateY( 0.0px) }
+  100% { transform: translateY( 0.0px) }
+}
+
+.noise{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(https://media.giphy.com/media/XuBNdP9Pb7W9i/giphy.gif);
+    background-repeat: repeat;
+    z-index: 999999999999;
+    opacity: .06;
+}
+
+#tnt-container {
+    z-index: 9999951 !important;
+}
+
+
+.blink_me {
+  animation: blinker 1s infinite;
+}
+
+@keyframes blinker {
+  from,
+  49.9% {
+    opacity: 0;
+  }
+  50%,
+  to {
+    opacity: 1;
+  }
+}
