@@ -396,23 +396,29 @@
 
         </script>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+@font-face {
+    font-family: 'Rubik';
+    font-weight: normal;
+    font-style: normal;
+}
 body {
   height: 100vh;
   background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80') center repeat;
   background-attachment: fixed;
   background-size: cover;
-  font-family: 'Lato', sans-serif;
-  overflow-y:scroll;
+  font-family: 'Rubik', sans-serif;
 }
 /* https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-461895.png */
 h1, h2, h3, h4, i{
-  font-family: 'Alegreya Sans SC', sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-weight: 300;
   margin: 5px 0;
 }
 
 input{
-  font-family: 'Alegreya Sans SC', sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-weight: 400;
   font-size: 1.4em;
   border: none;
@@ -420,7 +426,7 @@ input{
 
 
 a {
-  font-family: 'Alegreya Sans SC', sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-weight: 400;
   letter-spacing: .5px;
   font-size:1.1em;
@@ -436,7 +442,7 @@ margin: 0 auto;
 
 #weather-container {
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 16%;
 }
 
 .weather-bg{
@@ -557,7 +563,8 @@ input:active, input:focus {
   margin-top:10px;
 }
 .succeeding-days {
-  margin-top: -10px;
+  margin-top: 10px;
+  padding:5px;
 }
 
 .min,.max {
@@ -657,7 +664,7 @@ background-color:#fff;
 .letter{
     font-size:24px;
     color:#fff;
-    font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-weight: 400;
     margin-top: 40%;
 }
@@ -800,19 +807,41 @@ background-color:#fff;
 
 
 </style>
-
+<style>
+div.col-xs-12>div:nth-of-type(odd) {
+  background: #337ab712;
+}
+    div.succeeding-days>div:nth-of-type(even) {
+  background: #337ab712;
+}
+.wi {
+    display: inline-block;
+    font-family: 'weathericons';
+    font-style: normal;
+    font-weight: normal;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  b, strong {
+    font-weight: 700;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+}
+body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);}
+</style>
 
       </head>
       <body class="background" style="background-color:whitesmoke;">
         <div class="wrap">
         <div class="se-pre-con"><div id = "loader" class = "box">
-            <span class="letter text-center ffc"><i class=" fa fa-cog fa-spin" ></i> Checking Location...</span>
+            <span class="letter text-center ffc"><i class=" fa fa-cog fa-spin" ></i> Getting the Latest Weather...</span>
         </div></div>
         <div class="container">
          <div id="weather-container">
            <div class="col-md-12 weather-panel">
             <div class="text-center search-box"><span>
-               <input id="searchTextField" type="hidden" size="50" placeholder="&#xf041; enter location" autocomplete="on" runat="server" style="font-family:Alegreya Sans SC, FontAwesome" /></span>
+               <input id="searchTextField" type="hidden" size="50" placeholder="&#xf041; enter location" autocomplete="on" runat="server" style="font-family:Rubik, FontAwesome" /></span>
               <input type="hidden" id="city2" name="city2" />
               <input type="hidden" id="currentLoc" name="currentLoc" />
               <input type="hidden" id="cityLat" name="cityLat" />
