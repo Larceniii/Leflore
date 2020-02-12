@@ -1,16 +1,9 @@
 <!DOCTYPE html>
-<!-- Serving over 50,000 People in Leflore County Grabbing a sponsored spot on Leflore.Live is an essential way to expand your presence in the community. Call us today 918-649-4712
-
-1. Stats about Page
-2. Information About Your Audience
-3. Advertising Options
-4. List of Present / Past Sponsors
-Contact -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="180;url=slide2.htm" />
-    <title>Sponsors</title>
+    <title>Local News</title>
     <!-- script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous">
     </script -->
     <script>/*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
@@ -23,25 +16,25 @@ Contact -->
     <script src="js/jquery.rss.min.js"></script>
     <script src="https://cdn.rawgit.com/timrwood/moment/1.7.2/min/moment.min.js"></script>
 
-    <!-- script>
+    <script>
       jQuery(function($) {
         $("#rss-feeds").rss(
           [
-            "https://feeds.feedburner.com/ObituariesAndDeathNoticesHeavenerledgercom"
+            "http://heavenerledger.com/category/news-for-heavener-and-leflore-county/feed/"
           ],
           {
             layoutTemplate: "{entries}",
                     // entryTemplate:'<li style="float:left;width:50%;"><h3>{title}</h3>{teaserImage}{bodyPlain} [{date}]<div style="clear: both;"></li></div>',
-                    entryTemplate:'<li><div class="leftbox" style="width: 33vw; margin: 25px 10px 10px 5px; position: absolute; left: 20px;background-color:#ddd0;">{teaserImage}</div><div class="rightbox"  style="width: 48vw; margin: 25px 10px 10px 5px; position: absolute; right: 20px;background-color:#ddd0;"><p class="white caption">{title}</p><br><p class="white" style="font-size:25px;height:260px;overflow:hidden;">{bodyPlain}</p> <h5 class="white">Details on  HeavenerLedger.com </br>[{date}]</h5></div></li>',
+                    entryTemplate:'<li><div class="center"><p class="white caption">{title}</p><!--br><p class="white" style="font-size:25px;height:260px;overflow:hidden;">{bodyPlain}</p><div class="center">{teaserImage}</div--> </div></li>',
                     //entryTemplate:'<li>{teaserImage}<p class="white caption">{title}</p></li>',
                     dateFormat: "dddd, DD MMM YYYY",
-                    limit: 10,
+                    limit: 5,
                     support: false,
             success: function() {
-                    $("#rss-feeds").responsiveSlides({
+      /*              $("#rss-feeds").responsiveSlides({
                        auto: true,             // Boolean: Animate automatically, true or false
-                       speed: 1000,            // Integer: Speed of the transition, in milliseconds
-                       timeout: 4000,          // Integer: Time between slide transitions, in milliseconds
+                       speed: 100,            // Integer: Speed of the transition, in milliseconds
+                       timeout: 1000,          // Integer: Time between slide transitions, in milliseconds
                        pager: false,           // Boolean: Show pager, true or false
                        nav: false,             // Boolean: Show navigation, true or false
                        random: false,          // Boolean: Randomize the order of the slides, true or false
@@ -53,12 +46,12 @@ Contact -->
                        navContainer: "",       // Selector: Where controls should be appended to, default is after the 'ul'
                        manualControls: "",     // Selector: Declare custom pager navigation
                        namespace: "rslides",   // String: Change the default namespace used
-                    });
+                    }); /*/
             }
           }
         );
       });
-    </script-->
+    </script>
     <link rel="stylesheet" href="css/responsiveslides.css">
     <script src="js/responsiveslides.min.js"></script>
 </head>
@@ -99,17 +92,15 @@ Contact -->
 
   <div class="center">
 
-    <p class="title-red white" style="background-color:#ddd0" >GROW WITH US🌳</p>
-
-<div class="center white"><p>
-  Serving over 50,000 People in Leflore County Grabbing a sponsored spot on Leflore.Live is an essential way to expand your presence in the community. Call us today 918-649-4712
-</p></div>
-    <!--div class="rslides_container center">
-              <ul id="rss-feeds" class="rslides" style="height:70vh">
+    <p class="title-red white" style="background-color:#ddd0" >LOCAL NEWS</p>
+    <div class="rslides_container center">
+              <ul id="rss-feeds" class="rs7lides" style="list-style:none;">
 
               </ul>
-    </div-->
-<img src="ad-img/gcr.png" /><img src="ad-img/hl-logo.png" />
+
+    </div>
+<div class="center white">Details on  HeavenerLedger.com</div>
+
   </div>
 
 </div>
