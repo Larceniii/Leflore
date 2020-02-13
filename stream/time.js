@@ -1,4 +1,8 @@
 
+$(function() {
+    $('body').hide().fadeIn(1500);
+});
+
   function progress(timeleft, timetotal) {
       var current_percent = timeleft / timetotal * 100;
   	$('#ascii-progress-bar-1').html("");
@@ -16,12 +20,15 @@
   					progress(timeleft - 1, timetotal);
           }, 1000);
       }
+    if(timeleft < 2) {
+        $("body").fadeOut(1500)
+      }
   };
 
  // progress(180, 180);
 
 function update() {
-    $.ajax({
+/*    $.ajax({
         url: 'viewers.php',
         dataType: 'text',
         success: function(data) {
@@ -31,7 +38,7 @@ function update() {
                 $("#viewers").text(parseInt(data) + ' VIEWERS' );
             }
         }
-    })
+    }) */
 }
 
 // update();
@@ -53,8 +60,8 @@ window.setInterval(function(){
         var curr_day  = myDate.getDay();
         //TIME
 				var date = new Date();
-				var h = date.getUTCHours() - 6; // 0 - 23   (minus 6 for CST time)
-				var m = date.getUTCMinutes(); // 0 - 59
+				var h = date.getHours() ; // 0 - 23   (minus 6 for CST time)
+				var m = date.getMinutes(); // 0 - 59
 				var s = date.getSeconds(); // 0 - 59
 				var session = "AM";
 
@@ -70,7 +77,7 @@ window.setInterval(function(){
 				m = (m < 10) ? "0" + m : m;
 				s = (s < 10) ? "0" + s : s;
 
-	document.getElementById("MyClockDisplay").innerHTML = d_names[curr_day] + ' ' + m_names[curr_month] + ' ' +  curr_date + ', 20' + new Date().getFullYear().toString().substr(-2) + '&nbsp&nbsp   &nbsp&nbsp ' + h + '<span class="blink_me">:</span>' + m + ' ' + session;
+	document.getElementById("MyClockDisplay").innerHTML = d_names[curr_day] + ' ' + m_names[curr_month] + ' ' +  curr_date + ', 20' + new Date().getFullYear().toString().substr(-2) + '&nbsp&nbsp   &nbsp&nbsp ' + +h + '<span class="blink_me">:</span>' + m + ' ' + session;
 				setTimeout(showTime, 1000);
 			}
 
