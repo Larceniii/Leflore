@@ -353,10 +353,12 @@
     font-style: normal;
 }
 
-
+.bawks , .carousel-item {
+  border-radius: 8px;
+    box-shadow: 5px 5px 10px black;
+}
  .col-md-6 {float: left;  }
  .carousel-item {
-    border-radius: 20px;
     overflow: hidden;
     margin-top: 16px;
     height: 420px;
@@ -535,29 +537,6 @@ input:active, input:focus {
   margin-top: 10px;
 }
 
-.settings-wrapper {
-  position:absolute;
-  top: 1px;
-  left: 1px;
-  padding: 3px 0 5px 3px;
-  border-radius:3px;
-  width: 100px;
-  z-index: 1;
-}
-
-.settingsBtn, .closeBtn {
-  background: transparent;
-  border: 0;
-  outline: 0;
-  margin-left:-80px;
-  font-size: 1.3em;
-}
-.settingsBtn
-
-.settings {
-  float: left;
-  z-index:-1;
-}
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #333333;
@@ -825,7 +804,7 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
     			</div>
     			<div class="row center">
     				<div class="col-md-12">
-              <div class="icon-holder" style="    margin: 20px auto;background-color: #f5f5f5ee; padding: 49px; border-radius: 20px; width: 400px;">
+              <div class="icon-holder bawks" style="    margin: 20px auto;background-color: #f5f5f5ee; padding: 49px; width: 400px;">
                 <p class="main-icon"><i class="wi wi-night-alt-partly-cloudy wi-lg"></i></p>
                 <h4 class="current-summary"></h4>
                 <h1 class="main-temp temp"><i class="wi wi-thermometer"></i><strong class="temp-val" style="font-size:1.3em"> 34</strong></h1>
@@ -835,7 +814,7 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
     			</div>
     			<div class="row">
     				<div class="col-md-12">
-              <div  style="overflow:hidden;height: 420px;    width: 620px;    border-radius: 20px;">
+              <div  class="bawks" style="overflow:hidden;height: 420px;    width: 620px;">
                   <iframe src="https://maps.darksky.net/@precipitation_rate,35.147,-94.713,8"  style="overflow:hidden;height: 600px; width: 720px; margin-top:-100px " scrolling="no"></iframe>
               </div>
     				</div>
@@ -848,39 +827,35 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
     			</div>
     			<div class="row">
     				<div class="col-md-12">
-              <div  style="overflow:hidden;height: 515px;    width: 1249px;    border-radius: 20px;">
+              <div  class="bawks" style="overflow:hidden;height: 515px;    width: 1249px;">
                   <iframe src="https://maps.darksky.net/@temperature,39.910,-95.845,5"  style="overflow:hidden;height: 620px; width: 1300px; margin-top:-100px " scrolling="no"></iframe>
               </div>
     				</div>
     			</div>
     			<div class="row">
     				<div class="col-md-12">
-
     					<div class="carousel slide" id="carousel-737827" data-ride="carousel">
     						<ol class="carousel-indicators">
-    							<li data-slide-to="0" data-target="#carousel-737827" class="active">
-    							</li>
-    							<li data-slide-to="1" data-target="#carousel-737827">
-    							</li>
-
+    							<li data-slide-to="0" data-target="#carousel-737827" class="active"></li>
+    							<li data-slide-to="1" data-target="#carousel-737827"></li>
     						</ol>
     						<div class="carousel-inner" style="height:450px">
     							<!--div class="carousel-item active">
                   </div - -   >
                 </div -->
     							<div class="carousel-item active">
-                    <div class="row succeeding-days">
-                    </div>
+                    <div class="row succeeding-days"></div>
     							</div>
     							<div class="carousel-item" style="background-color:ghostwhite;">
                     <div class="col-md-12">
                        <h2 class="main-summary" style="padding:25px 0">Partly cloudy throughout the day.</h2>
                        <!-- h3><span class="main-address" style="padding:15px 0"> Leflore County</span></h3 -->
-
-                    <div class="col-md-6" style="padding:0"><div class="row">
-                      <div class="col-xs-6 col-md-10"><h3 class="main-wind pull-right"></h3></div>
-                    <div class="col-xs-6 col-md-2"><h3 class="main-wind-val pull-left" style="margin-top: 35px;"></h3>                  </div>
-                    </div></div>
+                    <div class="col-md-6" style="padding:0">
+                      <div class="row">
+                        <div class="col-xs-6 col-md-10"><h3 class="main-wind pull-right"></h3></div>
+                        <div class="col-xs-6 col-md-2"><h3 class="main-wind-val pull-left" style="margin-top: 35px;"></h3>                  </div>
+                      </div>
+                    </div>
                     <div class="row">
                       <div class="col-md-10 secondRowCol" style="padding:45px 0">
                         <h3 class="humidity"><i class="wi wi-humidity"></i> Humidity: 65%</h3>
@@ -888,13 +863,9 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
                         <h3 class="sunrise-sunset"><i class="wi wi-sunrise"></i> 5:55 AM | <i class="wi wi-sunset"></i> 6:19 PM</h3>
                       </div>
                     </div>
-                    <div class="col-md-12" style="padding:15px 0">
-
-                      </div>
+                    <div class="col-md-12" style="padding:15px 0"></div>
                     </div>
-
                     </div>
-
     							</div> <!-- END ITEM -->
 
     						</div> <a class="carousel-control-prev" href="#carousel-737827" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-737827" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
