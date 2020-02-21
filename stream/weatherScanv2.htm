@@ -343,22 +343,26 @@
           })
         // some reaction...
 });
-            $('#carousel-737827').carousel({
-              interval: 10000
+      */
+            $(function(){
+                  $('#carousel-737827').carousel({
+                  interval: 100000
+                });
             });
+var i = 0
+var counterBack = setInterval(function () {
+  i++;
+  if (i < 101) {
+    $('.progress-bar').css('width', i + '%');
+  } else {
+    //clearInterval(counterBack);
+    $("#carousel-737827").carousel('next');
+    i = 0;
+  }
 
+}, 300);
 
-    /m*    var i = 0;
-
-        var counterBack = setInterval(function () {
-          i++;
-          $('.progress-bar').css('width', i + '%');
-          } else {
-
-          }
-
-        }, 300); */
-        </script>
+</script>
 <style>
 
 .carousel-fade .carousel-item {

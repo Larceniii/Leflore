@@ -1,11 +1,66 @@
-
-.WORMcontainer {
-  background: transparent;
-  font: 16em/1 Rubik;
+/* Main styles */
+@import url(https://fonts.googleapis.com/css?family=Rubik);
+.text {
+  fill: none;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-dasharray: 70 330;
+  stroke-dashoffset: 0;
+  -webkit-animation: stroke 6s infinite linear;
+  animation: stroke 6s infinite linear;
+}
+.text:nth-child(5n + 1) {
+  stroke: #00CDFF;
+  text-shadow: 2px 2px 5px #00CDFF, 1px 1px 3px black;
+  -webkit-animation-delay: -1.2s;
+  animation-delay: -1.2s;
+}
+.text:nth-child(5n + 2) {
+  stroke: #00ACFF;
+  text-shadow: 2px 2px 5px #00ACFF, 1px 1px 3px black;
+  -webkit-animation-delay: -2.4s;
+  animation-delay: -2.4s;
+}
+.text:nth-child(5n + 3) {
+  stroke: #6599FF;
+  text-shadow: 2px 2px 5px #6599FF, 1px 1px 3px black;
+  -webkit-animation-delay: -3.6s;
+  animation-delay: -3.6s;
+}
+.text:nth-child(5n + 4) {
+  stroke: #B281FF;
+  text-shadow: 2px 2px 5px #B281FF, 1px 1px 3px black;
+  -webkit-animation-delay: -4.8s;
+  animation-delay: -4.8s;
+}
+.text:nth-child(5n + 5) {
+  stroke: #FA46FF;
+  text-shadow: 2px 2px 5px #FA46FF, 1px 1px 3px black;
+  -webkit-animation-delay: -6s;
+  animation-delay: -6s;
 }
 
-.text--line {
-  font-size: .5em;
+@-webkit-keyframes stroke {
+  100% {
+    stroke-dashoffset: -400;
+  }
+}
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: -400;
+  }
+}
+/* Other styles */
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #111;
+  background-size: .2em 100%;
+  font: 5em/1 Rubik;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 svg {
@@ -14,95 +69,18 @@ svg {
   height: 100%;
 }
 
-.text-copy {
-  fill: none;
-  stroke: white;
-  stroke-dasharray: 5% 20%;
-  stroke-width: 6px;
-  -webkit-animation: stroke-offset 10s infinite linear;
-          animation: stroke-offset 10s infinite linear;
-}
-.text-copy:nth-child(1) {
-  stroke: #00CDFF;
-  opacity: .59;
-  text-shadow: 2px 2px 5px #00CDFF, 1px 1px 3px black;
-  stroke-dashoffset: 5%;
-}
-.text-copy:nth-child(2) {
-  stroke: #00ACFF;
-  opacity: .59;
-  text-shadow: 2px 2px 5px #00ACFF, 1px 1px 3px black;
-  stroke-dashoffset: 10%;
-}
-.text-copy:nth-child(3) {
-  stroke: #6599FF;
-  opacity: .59;
-  text-shadow: 2px 2px 5px #6599FF, 1px 1px 3px black;
-  stroke-dashoffset: 15%;
-}
-.text-copy:nth-child(4) {
-  stroke: #B281FF;
-  opacity: .59;
-  text-shadow: 2px 2px 5px #B281FF, 1px 1px 3px black;
-  stroke-dashoffset: 20%;
-}
-.text-copy:nth-child(5) {
-  stroke: #FA46FF;
-  opacity: .59;
-  text-shadow: 2px 2px 5px #FA46FF, 1px 1px 3px black;
-  stroke-dashoffset: 25%;
-}
-
-@-webkit-keyframes stroke-offset {
-  50% {
-    stroke-dashoffset: 25%;
-    stroke-dasharray: 0 62.5%;
-  }
-}
-
-@keyframes stroke-offset {
-  50% {
-    stroke-dashoffset: 25%;
-    stroke-dasharray: 0 62.5%;
-  }
-}
 /* HOW TO USE
 
-<div class="WORMcontainer">
-<svg viewBox="0 0 800 600">
+<svg viewBox="0 0 600 300">
+  <!-- Symbol-->
   <symbol id="s-text">
-    <text text-anchor="middle"
-          x="50%"
-          y="35%"
-          class="text--line"
-          >
-      Leflore
-    </text>
-    <text text-anchor="middle"
-          x="50%"
-          y="68%"
-          class="text--line2"
-          >
-      Live
-    </text>
-
+    <text text-anchor="middle" x="50%" y="50%" dy=".35em">VAPOR.WAVE</text>
   </symbol>
-
-  <g class="g-ants">
-    <use xlink:href="#s-text"
-      class="text-copy"></use>
-    <use xlink:href="#s-text"
-      class="text-copy"></use>
-    <use xlink:href="#s-text"
-      class="text-copy"></use>
-    <use xlink:href="#s-text"
-      class="text-copy"></use>
-    <use xlink:href="#s-text"
-      class="text-copy"></use>
-  </g>
-
-
+  <!-- Duplicate symbols-->
+  <use class="text" xlink:href="#s-text"></use>
+  <use class="text" xlink:href="#s-text"></use>
+  <use class="text" xlink:href="#s-text"></use>
+  <use class="text" xlink:href="#s-text"></use>
+  <use class="text" xlink:href="#s-text"></use>
 </svg>
-</div>
-
 */
