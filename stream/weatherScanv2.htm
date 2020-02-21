@@ -88,7 +88,8 @@
         // get weather forecast
         function getWeather(latitude, longitude, units, deg){
 
-          var weatherUrl = "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/0214ddf09c891cbcc6919d1447cae41c/35.059930,-94.616780?exclude=minutely,alerts,flags&units=us";
+          var weatherUrl = "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/21950c0a7024a3f4bbb024e37d2bf163/35.059930,-94.616780?exclude=minutely,alerts,flags&units=us";
+          //var weatherUrl = "test.json";
 
           $.getJSON(weatherUrl).then(function(json) {
 
@@ -166,7 +167,7 @@
           var cloudCover = Math.round(dailyData.cloudCover*100);
           var html = '<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">';
           html += '<hr /><h3 class="sub-date">'+newTime+'</h3>';
-          html += '<p class="sub-icon">'+dailyIcon.iconSmall+'</p>';
+          html += '<p class="sub-icon LL-Shadow">'+dailyIcon.iconSmall+'</p>';
 
           html += '<div class="col-xs-6 col-md-6 min"><p class="sub-temp temp">- <i class="wi wi-thermometer"></i><br> '+dailyData.temperatureMin+ ' '+deg+'</p></div>';
           html += '<div class="col-xs-6 col-md-6 max"><p class="sub-temp temp">+ <i class="wi wi-thermometer"></i> <br>'+dailyData.temperatureMax+ ' '+deg+'</p></div>';
@@ -336,14 +337,27 @@
 
         getWeather(latitude, longitude, "us", "F");
 
-      /*  $(function(){
-            $('.carousel').carousel({
+  /*      $(function(){
+          $('#carousel-737827').on('slide.bs.carousel', function () {
+            i = 0;
+          })
+        // some reaction...
+});
+            $('#carousel-737827').carousel({
               interval: 10000
             });
-        $('.carousel-control.right').trigger('click');
-        });
-        */
 
+
+    /m*    var i = 0;
+
+        var counterBack = setInterval(function () {
+          i++;
+          $('.progress-bar').css('width', i + '%');
+          } else {
+
+          }
+
+        }, 300); */
         </script>
 <style>
 
@@ -837,7 +851,7 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
     				</div>
     			</div>
     			<div class="row">
-    				<div class="col-md-12">
+    				<div class="col-md-12" style="padding-left:40px;">
 
                 <div class="carousel slide carousel-fade" id="carousel-sponsors" data-ride="carousel">
       						<ol class="carousel-indicators">
@@ -922,89 +936,22 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
     						</div> <!-- a class="carousel-control-prev" href="#carousel-737827" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-737827" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a-->
     					</div>
     				</div>
+            <div class="row">
+    				<div class="col-md-12 top" style="margin-top: -9px;    height: 9px;    overflow: hidden;">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:1%; transition: width 0.5s;"></div>
+    				</div>
+    			</div>
+          <div class="row">
+            <div class="col-md-9">
+              <div class="text-center"><a style="color:#d3d3d312;" href="https://darksky.net/poweredby/">Powered by Dark Sky</a></div>
+            </div>
+          </div>
     			</div>
     		</div>
     	</div>
-    	<div class="row">
-    		<div class="col-md-12">
-          <div class="text-center"><a style="color:#d3d3d312;" href="https://darksky.net/poweredby/">Powered by Dark Sky</a></div>
-    		</div>
-    	</div>
+
     </div>
 
-
-
-<!--
-        <div class="wrap">
-        <div class="se-pre-con"><div id = "loader" class = "box">
-            <span class="letter text-center ffc"><i class=" fa fa-cog fa-spin" ></i> Getting the Latest Weather...</span>
-        </div></div>
-        <div class="container">
-         <div id="weather-container">
-           <div class="col-md-12 weather-panel">
-            <div class="text-center search-box"><span>
-               <input id="searchTextField" type="hidden" size="50" placeholder="&#xf041; enter location" autocomplete="on" runat="server" style="font-family:Rubik, FontAwesome" /></span>
-              <input type="hidden" id="city2" name="city2" />
-              <input type="hidden" id="currentLoc" name="currentLoc" />
-              <input type="hidden" id="cityLat" name="cityLat" />
-              <input type="hidden" id="cityLng" name="cityLng" />
-            </div>
-              <div class="error hidden"><p><i class="fa fa-exclamation-triangle fa-4x" aria-hidden="true"></i></p><h3>Unable to retrieve your location. Please enter your location on the search bar.</h3></div>
-                  <div class="panel panel-default">
-        <!--             <div class="panel-heading text-center weather-title">
-                      <h1><i class="fa fa-free-code-camp"></i>  Weather Forecast</h1>
-                    </div> --
-                    <div class="panel-body text-center" style="position:relative;">
-
-                      <div class="col-md-4">
-
-                      </div>
-                      <div class="col-md-8 secondCol">
-                      <div class="row"><h2 class="main-summary">Partly cloudy throughout the day.</h2>
-                         <h3><span class="main-address"> Leflore County</span></h3>
-                        </div>
-
-
-                      <div class="col-md-6"><div class="row">
-                        <div class="col-xs-6 col-md-8"><h3 class="main-wind pull-right"></h3></div>
-                      <div class="col-xs-6 col-md-4"><h3 class="main-wind-val pull-left" style="margin-top: 35px;"></h3>                  </div>
-                     </div></div>
-                      <div class="col-md-6 secondRowCol"><h3 class="humidity"><i class="wi wi-humidity"></i> Humidity: 65%</h3>
-        <h3 class="cloud-cover"><i class="wi wi-cloud-up"></i> Cloud Cover: na%</h3>
-                      </div>
-                      <div class="col-md-12">
-                      <h3 class="sunrise-sunset"><i class="wi wi-sunrise"></i> 5:55 AM | <i class="wi wi-sunset"></i> 6:19 PM</h3>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <div class="panel-heading">
-
-                      <h3 class="daily-summary text-center">Light rain throughout the week, with temperatures peaking at 100°F on Wednesday.</h3>
-
-                      <div class="row text-center succeeding-days">
-
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-           </div>
-          </div>
-          <div class="scroll-top-wrapper ">
-            <span class="scroll-top-inner">
-              <i class="fa fa-2x fa-arrow-circle-up"></i>
-            </span>
-          </div>
-         </div>
-         <script src="time.js?1"></script>
-         <!-- script>progress(45, 45); </script --
-           <div style="width:1920px;position:absolute;bottom:-20px">
-             <!--p style="font-size: 35px;margin: -3px -10vw 0px;color:#ddd"><span id="ascii-progress-bar-1"></span></p--
-           </div>
-         -->
-         <!-- script src="js/bootstrap4/jquery.min.js"></script-->
          <script src="time.js?1"></script>
          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
       </body>
