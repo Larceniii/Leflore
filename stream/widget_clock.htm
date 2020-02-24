@@ -1,0 +1,86 @@
+<style>
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+@font-face {
+    font-family: 'Rubik';
+    font-weight: normal;
+    font-style: normal;
+}
+html{
+    color: #F7F7F7;
+    filter: blur(.35px);
+    text-shadow: 0px 0px 3px #999, 2px 2px 4px black;
+
+}
+
+.Leflore {filter: blur(.35px);box-shadow: 0px 0px 3px #999, 2px 2px 4px black;}
+
+</style>
+<script language="JavaScript">
+fCol='f7f7f7'; //face colour.
+sCol='DD2222'; //seconds colour.
+mCol='f7f7f7'; //minutes colour.
+hCol='f7f7f7'; //hours colour.
+
+Ybase=150; //Clock height.
+Xbase=150; //Clock width.
+
+
+H='...';
+H=H.split('');
+M='....';
+M=M.split('');
+S='.....';
+S=S.split('');
+Ypos=0;
+Xpos=0;
+dots=12;
+Split=360/dots;
+
+for (i=1; i < dots+1; i++){
+document.write('<div id="n6Digits'+i+'"  style="position:absolute;top:0px;left:0px;width:30px;height:30px;    font-family: \'Rubik\', sans-serif;font-size:50px;color:#'+fCol+';text-align:center;padding-top:10px">'+i+'</div>');
+}
+for (i=0; i < M.length; i++){
+document.write('<div id="Ny'+i+'" class="Leflore" style="position:absolute;top:0px;left:0px;width:10px;height:10px;font-family: \'Rubik\', sans-serif;font-size:20px;border-radius:30px;background:#'+mCol+'"></div>');
+}
+for (i=0; i < H.length; i++){
+document.write('<div id="Nz'+i+'" class="Leflore" style="position:absolute;top:0px;left:0px;width:10px;height:10px;font-family: \'Rubik\', sans-serif;font-size:15px;border-radius:30px;background:#'+hCol+'"></div>');
+}
+for (i=0; i < S.length; i++){
+document.write('<div id="Nx'+i+'" class="Leflore" style="position:absolute;top:0px;left:0px;width:10px;height:10px;font-family: \'Rubik\', sans-serif;font-size:100px;border-radius:30px;background:#'+sCol+'"></div>');
+}
+
+function clock(){
+time = new Date ();
+secs = time.getSeconds();
+sec = -1.57 + Math.PI * secs/30;
+mins = time.getMinutes();
+min = -1.57 + Math.PI * mins/30;
+hr = time.getHours();
+hrs = -1.57 + Math.PI * hr/6 + Math.PI*parseInt(time.getMinutes())/360;
+
+
+Ypos=170;
+Xpos=200;
+for (i=1; i < dots+1; i++){
+ document.getElementById("n6Digits"+i).style.top=Ypos-15+Ybase*Math.sin(-1.56 +i *Split*Math.PI/180)
+ document.getElementById("n6Digits"+i).style.left=Xpos-15+Xbase*Math.cos(-1.56 +i*Split*Math.PI/180)
+ }
+for (i=0; i < S.length; i++){
+ document.getElementById("Nx"+i).style.top=Ypos+i*Ybase/4.1*Math.sin(sec);
+ document.getElementById("Nx"+i).style.left=Xpos+i*Xbase/4.1*Math.cos(sec);
+ }
+for (i=0; i < M.length; i++){
+ document.getElementById("Ny"+i).style.top=Ypos+i*Ybase/4.1*Math.sin(min);
+ document.getElementById("Ny"+i).style.left=Xpos+i*Xbase/4.1*Math.cos(min);
+ }
+for (i=0; i < H.length; i++){
+ document.getElementById("Nz"+i).style.top=Ypos+i*Ybase/4.1*Math.sin(hrs);
+ document.getElementById("Nz"+i).style.left=Xpos+i*Xbase/4.1*Math.cos(hrs);
+ }
+
+setTimeout('clock()',80);
+}
+clock();
+//-->
+</script>

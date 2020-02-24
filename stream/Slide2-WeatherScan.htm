@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow:hidden;background-color:black;">
+<head>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=device-width, initial-scale=1" />
+  	<link rel="dns-prefetch" href="https://api.darksky.net">
+  	<link rel="dns-prefetch" href="https://nominatim.openstreetmap.org">
+    <meta http-equiv="refresh" content="120;url=slide3-EventScan.htm" />
+    <title>Leflore WeatherScan</title>
+
+        <!--cript src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script -->
+        <script src="js/bootstrap4/jquery.min.js"></script>
+
+        <link href="css/bootstrap4/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/LL.css">
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+        <!-- link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" /-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" />
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js"></script>
+        <script src="js/LL.js"></script>
+
+        <script>
+        $.fn.extend({
+        animateCss: function (animationName) {
+                var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+                this.addClass('animated ' + animationName).one(animationEnd, function() {
+                    $(this).removeClass('animated ' + animationName);
+                });
+            },
+        disableBtn: function (){
+              this.attr("disabled", true);
+            },
+        enableBtn: function (){
+              this.attr("disabled", false);
+            }
+        });
+
+        //user location using google API
+        function geoFindMe() {
+          var output = document.getElementById("weather-container");
+
+              units = "us";
+              deg = "&deg;F";
+          }
+
+          function success(position) {
+            var latitude  = "35.059930";
+            var longitude = "-94.616780";
+
+            $("#cityLat").val(latitude);
+            $("#cityLng").val(longitude);
+
+        	  getWeather(latitude, longitude, units, deg);
+
+          }
+
+          function error() {
+            getIpLoc(units, deg);
+          }
+
+
+        //location based on IP address when geolocation fails
+
+
+        //get location based on search criteria using google places
+        function initialize() {
+
+            var input = document.getElementById('searchTextField');
+
+                  $('.panel').removeClass('hidden');
+
+                var latitude  = "35.059930";
+                var longitude = "-94.616780";
+                $("#cityLat").val(latitude);
+                $("#cityLng").val(longitude);
+                var units = "us";
+                var deg = "&deg;F";
+
+               getWeather(latitude, longitude, units, deg);
+
+            };
+
+
+        // get weather forecast
+        function getWeather(latitude, longitude, units, deg){
+
+          var weatherUrl = "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/21950c0a7024a3f4bbb024e37d2bf163/35.059930,-94.616780?exclude=minutely,alerts,flags&units=us";
+          //var weatherUrl = "test.json";
+
+          $.getJSON(weatherUrl).then(function(json) {
+
+          setMainPanel(json, deg, units)
+          var arr = json.daily.data;
+          arr.shift();
+          arr.pop();
+          var subDays = [];
+          for(i=0;i<arr.length;i++){
+           var html = setSubPanel(json.daily.data[i], deg, json.timezone);
+            subDays += html;
+          }
+
+          $(".daily-summary").html(json.daily.summary);
+          $(".succeeding-days").html(subDays).animateCss("fadeIn");
+        	})
+        	.fail(function() {
+        	  var html = "<blockquote>Unable to get weather</blockquote>"
+        	  $(".weather-container").html(html);
+        	});
+
+        }
+
+        //display weather on main panel
+        function setMainPanel(json, deg, units){
+          var jsonTemp;
+          var fmt = "h:mm A ddd, MM/DD";
+          var fmt1 = "h:mm A";
+          var newTime =  convertTime(json.currently.time, json.timezone, fmt);
+          var newSunrise =  convertTime(json.daily.data[0].sunriseTime, json.timezone, fmt1);
+          var newSunset =  convertTime(json.daily.data[0].sunsetTime, json.timezone, fmt1);
+        	var iconCode = json.currently.icon;
+          var humidity = Math.round(json.currently.humidity*100);
+          var cloudCover = Math.round(json.currently.cloudCover*100);
+          var windScale = beaufortScale(json.currently.windSpeed, units);
+        //   Display main panel
+
+          $(".main-date").text(newTime).animateCss('fadeIn');
+          $(".main-temp").html('<i class="wi wi-thermometer"></i><strong class="temp-val" style="font-size:1.3em"> '+json.currently.temperature+'</strong> '+deg).animateCss('fadeIn');
+          $(".main-summary").text(json.hourly.summary).animateCss('fadeIn');
+          $(".current-summary").text(json.currently.summary).animateCss('fadeIn');
+        //  $(".main-wind").html(windScale.icon+'<br>'+windScale.scale).animateCss('fadeIn');
+        //  $(".main-wind-val").html(windScale.speed+' '+windScale.unit).animateCss('fadeIn');
+          $(".main-wind").html(windScale.icon+'<br>'+windScale.scale+' | '+windScale.speed+' '+windScale.unit).animateCss('fadeIn');
+          $(".humidity").html('<i class="wi wi-humidity"></i> Humidity: '+ humidity + '%').animateCss('fadeIn');
+          $(".cloud-cover").html('<i class="wi wi-cloud"></i> Cloud Cover: '+ cloudCover + '%').animateCss('fadeIn');
+          $(".sunrise-sunset").html('<i class="wi wi-sunrise"></i>SUNRISE: '+newSunrise+' <br> <i class="wi wi-sunset"></i>SUNSET: '+newSunset).animateCss('fadeIn');
+          setMainIcon(json.currently.icon);
+        }
+
+        //set weather icon on main panel
+        function setMainIcon(currentIcon, deg){
+           var panelBodyCss;
+           var body = "body";
+           var panelBody = ".panel-body";
+           var panelBodyCss = "linear-gradient(to bottom, rgba(255,255,255,.8), rgba(255,255,255,.8)),";
+           var bodyCss = "linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0)),";
+
+           var iconVal = weatherIcon(currentIcon);
+
+           changeBg(body,iconVal.img,bodyCss);
+           changeBg(panelBody,iconVal.img,panelBodyCss);
+           $('.main-icon').html(iconVal.icon);
+        }
+
+        //display 6-day forecast on subpanel
+        function setSubPanel(dailyData, deg, timezone){
+          var dailyIcon = weatherIcon(dailyData.icon);
+          var ftm = 'ddd, MM/DD';
+          var fmt1 = "h:mm A";
+          var newTime =  convertTime(dailyData.time, timezone, ftm);
+          var newSunrise =  convertTime(dailyData.sunriseTime, timezone, fmt1);
+          var newSunset =  convertTime(dailyData.sunsetTime, timezone, fmt1);
+          var humidity = Math.round(dailyData.humidity*100);
+          var cloudCover = Math.round(dailyData.cloudCover*100);
+          var html = '<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">';
+          html += '<hr /><h3 class="sub-date">'+newTime+'</h3>';
+          html += '<p class="sub-icon LL-Shadow">'+dailyIcon.iconSmall+'</p>';
+
+          html += '<div class="col-xs-6 col-md-6 min"><p class="sub-temp temp">- <i class="wi wi-thermometer"></i><br> '+dailyData.temperatureMin+ ' '+deg+'</p></div>';
+          html += '<div class="col-xs-6 col-md-6 max"><p class="sub-temp temp">+ <i class="wi wi-thermometer"></i> <br>'+dailyData.temperatureMax+ ' '+deg+'</p></div>';
+          html += '<div class="col-xs-6 col-md-6 min"><p class="sub-temp temp"><i class="wi wi-sunrise"></i> <br>'+newSunrise+'</p></div>';
+          html += '<div class="col-xs-6 col-md-6 min"><p class="sub-temp temp"><i class="wi wi-sunset"></i><br> '+newSunset+'</p></div>';
+          html += '<div class="col-xs-6 col-md-6 min"><p class="sub-temp temp"><i class="wi wi-humidity"></i><br> '+humidity+'%</p></div>';
+          html += '<div class="col-xs-6 col-md-6 min"><p class="sub-temp temp"><i class="wi wi-cloud"></i><br> '+cloudCover+'%</p></div>';
+           html += '<p class="sub-summary">'+dailyData.summary+'</p></div>';
+
+          return html;
+        }
+
+        //get weathericon based on weather API
+        function weatherIcon(currentIcon){
+           var img, icon, iconSmall;
+           switch(currentIcon)  {
+               case "rain":
+                 img = "https://source.unsplash.com/1920x1080/?rain";
+                 icon = '<i class="wi wi-rain wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-rain wi-md"></i>';
+               break;
+               case "clear-day":
+                 img = "https://source.unsplash.com/1920x1080/?sunshine";
+                 icon = '<i class="wi wi-day-sunny wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-day-sunny wi-md"></i>';
+               break;
+               case "partly-cloudy-day":
+                 img = "https://source.unsplash.com/1920x1080/?cloudy";
+                 icon = '<i class="wi wi-day-cloudy wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-day-cloudy wi-md"></i>';
+                 $('.icon-holder').css('margin-top', '20px');
+               break;
+               case "clear-night":
+                 img = "https://source.unsplash.com/1920x1080/?clearsky";
+                 icon = '<i class="wi wi-night-clear wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-night-clear wi-md"></i>';
+                 $('.icon-holder').css('margin-top', '-10px');
+               break;
+               case "partly-cloudy-night":
+                 img = "https://source.unsplash.com/1920x1080/?cloudy-night";
+                 icon = '<i class="wi wi-night-cloudy wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-night-cloudy wi-md"></i>';
+               break;
+               case "snow":
+                 img = "https://source.unsplash.com/1920x1080/?snow";
+                 icon = '<i class="wi wi-snow wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-snow wi-md"></i>';
+               break;
+               case "sleet":
+                 img = "https://source.unsplash.com/1920x1080/?sleet";
+                 icon = '<i class="wi wi-sleet wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-sleet wi-md"></i>';
+               break;
+               case "wind":
+                 img = "https://source.unsplash.com/1920x1080/?wind";
+                 icon = '<i class="wi wi-windy wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-windy wi-md"></i>';
+               break;
+               case "cloudy":
+                 img = "https://source.unsplash.com/1920x1080/?cloudy";
+                 icon = '<i class="wi wi-cloudy wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-cloudy wi-md"></i>';
+               break;
+               case "fog":
+                 img = "https://source.unsplash.com/1920x1080/?fog";
+                 icon = '<i class="wi wi-fog wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-fog wi-md"></i>';
+               break;
+               default:
+                 img = "https://source.unsplash.com/1920x1080/?sky";
+                 icon = '<i class="wi wi-na wi-lg"></i>';
+                 iconSmall = '<i class="wi wi-na wi-md"></i>';
+           }
+              var results = {
+                 img: img,
+                 icon: icon,
+                 iconSmall: iconSmall
+               };
+               return results;
+
+        }
+
+        //get beaufort scale based on windspeed on weather API
+        function beaufortScale(windSpeed, units){
+          var kmSpeed;
+          var icon,scale;
+          var speed, unit;
+           if(units == "us") {
+            unit = "mph";
+            kmSpeed = Math.round(windSpeed * 1.6);
+            speed = windSpeed;
+          } else {
+            kmSpeed = Math.round(windSpeed);
+            speed = windSpeed;
+            unit = "km/h";
+          }
+
+          if(kmSpeed<1){
+                icon = '<i class="wi wi-wind-beaufort-0 wi-lg LL-Shadow"></i>';
+                scale = 'Calm';
+          } else if(kmSpeed>=1 && kmSpeed<=5) {
+                icon = '<i class="wi wi-wind-beaufort-1 wi-lg LL-Shadow"></i>';
+                scale = 'Light Air';
+          } else if(kmSpeed>=6 && kmSpeed<=11) {
+                icon = '<i class="wi wi-wind-beaufort-2 wi-lg LL-Shadow"></i>';
+                scale = 'Light Breeze';
+          } else if(kmSpeed>=12 && kmSpeed<=19) {
+                icon = '<i class="wi wi-wind-beaufort-3 wi-lg LL-Shadow"></i>';
+                scale = 'Gentle Breeze';
+          } else if(kmSpeed>=20 && kmSpeed<=28) {
+                icon = '<i class="wi wi-wind-beaufort-4 wi-lg LL-Shadow"></i>';
+                scale = 'Moderate Breeze';
+          } else if(kmSpeed>=29 && kmSpeed<=38) {
+                icon = '<i class="wi wi-wind-beaufort-5 wi-lg LL-Shadow"></i>';
+                scale = 'Fresh Breeze';
+          } else if(kmSpeed>=39 && kmSpeed<=49) {
+                icon = '<i class="wi wi-wind-beaufort-6 wi-lg LL-Shadow"></i>';
+                scale = 'Strong Breeze';
+          } else if(kmSpeed>=50 && kmSpeed<=61) {
+                icon = '<i class="wi wi-wind-beaufort-7 wi-lg LL-Shadow"></i>';
+                scale = 'High Wind';
+          } else if(kmSpeed>=62 && kmSpeed<=74) {
+                icon = '<i class="wi wi-wind-beaufort-8 wi-lg LL-Shadow"></i>';
+                scale = 'Gale';
+          } else if(kmSpeed>=75 && kmSpeed<=88) {
+                icon = '<i class="wi wi-wind-beaufort-9 wi-lg LL-Shadow"></i>';
+                scale = 'Strong Gale';
+          } else if(kmSpeed>88){
+                icon = '<i class="wi wi-wind-beaufort-10 wi-lg LL-Shadow"></i>';
+                scale = 'Storm';
+          }
+
+          var results = {
+                speed: speed,
+                unit: unit,
+                icon: icon,
+                scale: scale
+          };
+          return results;
+        }
+
+        //change background image
+        function changeBg(className, img, gradient) {
+          $(className).css({'background': gradient+" url("+img+") center repeat",
+              'background-attachment': 'fixed',
+              'background-size': 'cover',
+               });
+        }
+
+
+        //convert unix time to human time
+        function convertTime(input, timezone, format){
+            var timestamp = moment.unix(input);
+            return moment(timestamp).tz(timezone).format(format);
+        }
+
+
+
+        $('.carousel').animateCss("flash");
+         setTimeout(function(){
+              $('.se-pre-con').animateCss("slideOutLeft");
+              $('.se-pre-con').css({"opacity": 0, "z-index": -1, "transition": "z-index 0.8s step-end, opacity 0.5s linear"});
+               },3000);
+
+               var latitude  = "35.059930";
+               var longitude = "-94.616780";
+
+        getWeather(latitude, longitude, "us", "F");
+
+  /*      $(function(){
+          $('#carousel-737827').on('slide.bs.carousel', function () {
+            i = 0;
+          })
+        // some reaction...
+});
+      */
+            $(function(){
+                  $('#carousel-737827').carousel({
+                  interval: 100000
+                });
+            });
+var i = 0
+var counterBack = setInterval(function () {
+  i++;
+  if (i < 101) {
+    $('.progress-bar').css('width', i + '%');
+  } else {
+    //clearInterval(counterBack);
+    $("#carousel-737827").carousel('next');
+    i = 0;
+  }
+
+}, 300);
+
+</script>
+<style>
+
+.carousel-fade .carousel-item {
+    opacity: .0;
+    transition: opacity .7s;
+}
+
+.carousel.carousel-fade .carousel-item.active {
+    opacity: 1 !important;
+    transition: opacity  .7s;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+@font-face {
+    font-family: 'Rubik';
+    font-weight: normal;
+    font-style: normal;
+}
+
+.bawks {
+  border-radius: 3px;
+    box-shadow: 5px 5px 10px black;
+}
+
+.LL-grad {
+      /* background: linear-gradient(45deg, rgba(185,183,221,1) 0%, rgba(9,9,121,0.2) 50%, rgba(0,212,255,0.2) 100%);
+       background:linear-gradient(45deg, rgba(225,123,251,.3) 0%, rgba(9,9,121,0.2) 50%, rgba(0,212,255,0.3) 100%); */
+       background: linear-gradient(45deg, rgba(97, 47, 109, 0.67) 0%, rgba(18, 25, 51, 0.71) 50%, rgba(24, 68, 167, 0.62) 100%);
+}
+.LL-Shadow {text-shadow: 0 1px 2px #00000073, 1px 2px 0 #c9c9c9, 1px 3px 0 #bbb, 2px 4px 0 #a5a5a5, 2px 5px 0 #6f6f6f, 3px 6px 1px rgb(0, 0, 0), 0px 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);  }
+
+ .col-md-6 {float: left;  }
+ .carousel-item {
+   text-align: center;
+  /*  overflow: hidden;
+    margin-top: 16px;
+    height: 420px;
+
+    */
+  }
+body {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80') center repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: 'Rubik', sans-serif;
+}
+/* https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-461895.png */
+h1, h2, h3, h4, i{
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  margin: 5px 0;
+}
+
+input{
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 1.4em;
+  border: none;
+}
+
+
+a {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  letter-spacing: .5px;
+  font-size:1.1em;
+}
+
+hr {
+  visibility: hidden;
+}
+
+.weather-card {
+margin: 0 auto;
+}
+
+#weather-container {
+  margin: 0 auto;
+  margin-top: 16%;
+}
+
+.weather-bg{
+  object-fit: cover;
+  height:50%;
+  width:100%;
+}
+
+.error {
+  background: linear-gradient(to bottom, rgba(255,255,255,.6), rgba(255,255,255,.8));
+  margin-top: 30px;
+  padding:10px;
+  text-align:center;
+}
+
+.hidden {
+  display:none;
+}
+
+.panel{
+  margin-top:10px;
+  border: 0;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 60px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 60px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 60px rgba(0, 0, 0, 0.2) inset;
+}
+
+.panel-heading {
+  padding: 5px 8px;
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.weather-title {
+  background: url("https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-505948.jpg") !important;
+  background-size: cover !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+.panel-body {
+  background: linear-gradient(to bottom, rgba(255,255,255,.5), rgba(255,255,255,.7)),  url('https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-505948.jpg') center repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 5px;
+}
+
+.panel-body:hover {
+  background: linear-gradient(to bottom, rgba(255,255,255,.6), rgba(255,255,255,.8)),  url('https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-505948.jpg') center repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.secondCol {
+  margin: 5px 0 0 0;
+}
+
+.thirdCol {
+  margin: 10px 0 0 0;
+}
+
+
+.search-box {
+  margin-top: -10px;
+}
+
+#searchTextField {
+  padding: 5px 10px;
+  width: 60%;
+  background: rgba(255, 255, 255, .8);
+  color: #333333 !important;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+   text-align: center;
+}
+
+.searchBtn {
+  margin: -3px 0 0 -43px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+input:active, input:focus {
+  outline: 0;
+  outline-style:none;
+  outline-width:0;
+  background: rgba(255, 255, 255, .7) !important;
+}
+
+
+.searchBtn:hover, .searchBtn:active, .searchBtn:visited, .searchBtn:link  {
+  background: transparent !important;
+  border: 0 !important;
+  outline: none !important;
+}
+
+.icon-holder {
+/*   border: 4px solid #333;
+  border-radius: 50%;
+  padding: 0px;
+  width:200px;
+  height: 200px;
+  margin: 0 auto; */
+}
+
+.main-summary:after {
+  content:' ';
+  display:block;
+  border:0.5px solid #333333;
+  width: 40%;
+  margin-left: 30%;
+  margin-top:7px;
+}
+
+.secondRowCol {
+  margin-top:10px;
+}
+.succeeding-days {
+  margin-top: 0px;
+  padding:0px;
+  color: ghostwhite;
+}
+
+.min,.max {
+  padding:0;
+}
+
+.daily-summary {
+  margin-top: 10px;
+}
+
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #333333;
+
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #333333;
+
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #333333;
+
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #333333;
+
+}
+
+/* WEATHER ICONS */
+
+.wi-lg {
+  font-size: 8em;
+}
+
+.wi-md {
+  font-size: 3em;
+}
+
+.wi-sm {
+  font-size: 2em;
+}
+
+/* LOADER */
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+
+}
+
+/* https://cdn.pbrd.co/images/5pbm8GXzy.jpg */
+#loader{
+background: url("https://source.unsplash.com/1920x1080/?earth") center no-repeat;
+background-size: cover;
+flex-direction:row;
+-webkit-flex-direction:row;
+-ms-flex-direction:row;
+-mos-flex-direction:row;
+-o-flex-direction:row;
+justify-content:center;
+-webkit-justify-content:center;
+-ms-justify-content:center;
+height:100%;
+width:100%;
+background-color:#fff;
+}
+
+.letter{
+    font-size:24px;
+    color:#fff;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    margin-top: 40%;
+}
+
+.box{
+  display: box;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+}
+
+.letter {
+    flex:none;
+    -webkit-flex:none;
+    -moz-flex:none;
+    -ms-flex:none;
+    -o-flex:none;
+}
+
+.letter{
+    align-self:center;
+    -webkit-align-self:center;
+    -moz-align-self:center;
+    -o-align-self:center;
+    -ms-align-self:center;
+}
+
+
+/* SCROLL TO TOP */
+
+.scroll-top-wrapper {
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+	overflow: hidden;
+	text-align: center;
+	z-index: 99999999;
+  background-color: #333;
+	color: #fff;
+	width: 50px;
+	height: 48px;
+	line-height: 37px;
+	right: 5%;
+	bottom: 20px;
+	padding-top: 2px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+  -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4));
+  -moz-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+  box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+}
+.scroll-top-wrapper:hover {
+	background-color: #fff;
+  color: #333;
+}
+.scroll-top-wrapper.show {
+   visibility:visible;
+   cursor:pointer;
+	 opacity: 1.0;
+}
+.scroll-top-wrapper i.fa {
+	line-height: inherit;
+}
+
+.scroll-top-inner i{
+  margin-bottom: 10px;
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    .container {
+      padding-right: 0;
+      padding-left: 0;
+    }
+		h1, {
+			font-size:1.5em;
+      font-weight: 400;
+      margin: 5px 0;
+		}
+    h2, h3{
+			font-size:1.4em;
+      font-weight: 400;
+      margin: 5px 0;
+		}
+    .panel {
+      margin-top: 10px;
+    }
+
+    .main-summary {
+      margin-top: 5px;
+    }
+    .main-summary:after {
+      width: 50%;
+      margin-left: 25%;
+    }
+    #searchTextField {
+      width: 100%;
+      margin-top: -10px;
+    }
+
+    .letter{
+    margin-top: 50%;
+    font-size: 18px !important;
+    }
+
+    input {
+      font-size: 1.1em;
+      border: none;
+    }
+
+    .wi-md {
+      font-size: 3em;
+    }
+
+    .wi-lg {
+      font-size: 7em;
+    }
+
+    hr {
+      visibility: visible;
+    }
+
+    .secondCol, .thirdCol {
+      margin: 3px 0 0 0;
+    }
+    .sub-summary {
+      font-size: 1.1em;
+    }
+	}
+
+
+</style>
+<style>
+div.col-xs-12>div{color:ghostwhite}
+
+div.col-xs-12>div:nth-of-type(odd) {
+  background: #337ab712;
+}
+    div.succeeding-days>div:nth-of-type(even) {
+  background: #337ab712;
+}
+div.succeeding-days>div:nth-child(1) {background-color: #1f4371cc; }
+div.succeeding-days>div:nth-child(2) {background-color: #2962a9cc; }
+div.succeeding-days>div:nth-child(3) {background-color: #347bd5cc; }
+div.succeeding-days>div:nth-child(4) {background-color: #609ae1cc; }
+div.succeeding-days>div:nth-child(5) {background-color: #76a7e3cc; }
+div.succeeding-days>div:nth-child(6) {background-color: #86b0e2cc; }
+
+.wi {
+    display: inline-block;
+    font-family: 'weathericons';
+    color: ghostwhite;
+    font-style: normal;
+    font-weight: normal;
+    /* text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15); */
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+
+  }
+  b, strong {
+    font-weight: 700;
+    text-shadow: 0 1px 2px #00000073, 1px 2px 0 #c9c9c9, 1px 3px 0 #bbb, 2px 4px 0 #a5a5a5, 2px 5px 0 #6f6f6f, 3px 6px 1px rgb(0, 0, 0), 0px 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+}
+
+body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);}
+
+
+</style>
+
+      </head>
+      <body class="background" style="background-color:whitesmoke;background:none !important;    background-image: none !important;">
+
+        <div class="container-fluid">
+    	<div class="row">
+    		<div style="background:none;height:auto;" class=" screen col-md-12">
+            <div class="play-container flex space-between">
+              <!-- div class="white">Leflore County Live</div>
+              <div class="white" style="">  <div id="viewers" ></div></div-->
+            </div>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-3">
+    			<div class="row">
+    				<div class="col-md-12">
+    					<img alt="Logo" src="img/LefloreCountyLiveLogo.png" style="width: 444px;padding-left: 10px;">
+    				</div>
+    			</div>
+    			<div class="row center">
+    				<div class="col-md-12">
+              <div class="icon-holder bawks LL-grad" style="margin: 20px auto; padding: 49px; width: 400px;">
+                <p class="main-icon LL-Shadow"><i class="wi wi-night-alt-partly-cloudy wi-lg LL-Shadow"></i></p>
+                <h4 class="current-summary white" style="padding:10px"></h4>
+                <h1 class="main-temp temp white"><i class="wi wi-thermometer white"></i><strong class="temp-val white" style="font-size:1.3em"> 34</strong></h1>
+                  <!--h3><span class="main-date white">date </span></h3-->
+                  <h2 class="white"><span class="" id="MyClockDisplay"></span></h2>
+              </div>
+    				</div>
+    			</div>
+    			<div class="row">
+    				<div class="col-md-12" style="padding-left:40px;">
+              <!-- BEGIN SPONSORS SLIDES -->
+              <div class="carousel slide carousel-fade" id="carousel-sponsors" data-ride="carousel" LL-include-html="sponsors.htm"></div>
+              <!-- END SPONSORS SLIDES -->
+    				</div>
+    			</div>
+    		</div>
+    		<div class="col-md-9">
+    			<div class="row">
+    				<div class="col-md-12">
+    				</div>
+    			</div>
+    			<div class="row">
+    				<div class="col-md-12 top">
+    				</div>
+    			</div>
+    			<div class="row">
+    				<div class="col-md-12">
+    					<div class="carousel slide" id="carousel-737827" data-ride="carousel">
+    						<ol class="carousel-indicators">
+    							<li data-slide-to="0" data-target="#carousel-737827" class="active"></li>
+    							<li data-slide-to="1" data-target="#carousel-737827"></li>
+                  <li data-slide-to="2" data-target="#carousel-737827"></li>
+                  <li data-slide-to="3" data-target="#carousel-737827"></li>
+    						</ol>
+    						<div class="carousel-inner bawks" style="height:850px">
+    							<!--div class="carousel-item active">
+                  </div - -   >
+                </div -->
+    							<div class="carousel-item active  LL-grad LL-Shadow" style="padding-bottom: 40%;padding-top: 18%">
+                    <img alt="Logo" src="img/Forecast.png" style="position: absolute;left: 22%;top: 80px;">
+                    <div class="white row succeeding-days"></div>
+    							</div>
+    							<div class="carousel-item LL-grad LL-Shadow" style="height: 850px;padding-top: 15%;
+" >
+                    <div class="col-md-12">
+                       <h2 class="main-summary white" style="padding:25px 0">Partly cloudy throughout the day.</h2>
+                       <!-- h3><span class="main-address" style="padding:15px 0"> Leflore County</span></h3 -->
+                    <div class="col-md-6" style="padding:0">
+                      <div class="row">
+                        <div class="col-xs-6 col-md-10"><h3 class="main-wind pull-right white"></h3></div>
+                        <!--div class="col-xs-6 col-md-2"><h3 class="main-wind-val pull-left white" style="margin-top: 35px;"></h3></div-->
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10 secondRowCol white" style="    padding: 45px 0 0 20%;text-align: left;">
+                        <h3 class="humidity"><i class="wi wi-humidity"></i> Humidity: 65%</h3>
+                        <h3 class="cloud-cover"><i class="wi wi-cloud-up"></i> Cloud Cover: na%</h3>
+                        <h3 class="sunrise-sunset"><i class="wi wi-sunrise"></i> 5:55 AM | <i class="wi wi-sunset"></i> 6:19 PM</h3>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="padding:15px 0"></div>
+                    </div>
+                    </div>
+                    <div class="carousel-item ">
+                      <img alt="Logo" src="img/TempMap.png" style="position: absolute;left: 18%;top: 46px;">
+                      <div style="overflow:hidden;height: 850px;width: 1410px;">
+                          <iframe src="https://maps.darksky.net/@temperature,39.910,-95.845,5"  style="overflow:hidden;height: 955px; width: 1460px; margin-top:-100px " scrolling="no"></iframe>
+                      </div>
+      							</div>
+                    <div class="carousel-item ">
+                      <img alt="Logo" src="img/RainRadar.png" style="position: absolute;left: 0px;top: 0px;">
+                      <div style="overflow:hidden;height: 850px;width: 1410px;">
+                          <iframe src="https://maps.darksky.net/@precipitation_rate,35.147,-94.713,8"  style="overflow:hidden;height: 955px; width: 1460px; margin-top:-100px " scrolling="no"></iframe>
+                      </div>
+                    </div>
+
+    							</div> <!-- END ITEM -->
+
+    						</div> <!-- a class="carousel-control-prev" href="#carousel-737827" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-737827" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a-->
+    					</div>
+    				</div>
+            <div class="row">
+    				<div class="col-md-12 top" style="margin-top: -9px;    height: 9px;    overflow: hidden;">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:1%; transition: width 0.5s;"></div>
+    				</div>
+    			</div>
+          <div class="row">
+            <div class="col-md-12">
+                  <p style="font-size: 70px;  padding-top: 18px;" LL-include-html="NewsTicker.htm"></p>
+            </div>
+            <div class="col-md-9">
+              <div class="text-center"><a style="color:#d3d3d312;" href="https://darksky.net/poweredby/">Powered by Dark Sky</a></div>
+            </div>
+          </div>
+    			</div>
+    		</div>
+    	</div>
+
+    </div>
+
+         <script src="time.js?1"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+         <script>           includeHTML();         </script>
+      </body>
+      </html>

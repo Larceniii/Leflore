@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow:hidden;background-color:black;">
+<head>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=device-width, initial-scale=1" />
+  	<link rel="dns-prefetch" href="https://api.darksky.net">
+  	<link rel="dns-prefetch" href="https://nominatim.openstreetmap.org">
+    <meta http-equiv="refresh" content="45;url=Slide7-grow.htm" />
+    <title>Leflore,Live Shoutboard!</title>
+
+        <!--cript src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script -->
+        <script src="js/bootstrap4/jquery.min.js"></script>
+
+        <link href="css/bootstrap4/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/LL.css">
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+        <!-- link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" /-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" />
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js"></script>
+
+        <script src="js/LL.js"></script>
+        <script>
+
+
+
+////////////////////SLIDE TIMER/////////////////////////////////
+            $(function(){
+                  $('#carousel-737827').carousel({
+                  interval: 100000
+                });
+            });
+var i = 0
+var counterBack = setInterval(function () {
+  i++;
+  if (i < 101) {
+    $('.progress-bar').css('width', i + '%');
+  } else {
+    //clearInterval(counterBack);
+    $("#carousel-737827").carousel('next');
+    i = 0;
+  }
+
+}, 600);
+
+</script>
+<style>
+
+.carousel-fade .carousel-item {
+    opacity: .0;
+    transition: opacity .7s;
+}
+
+.carousel.carousel-fade .carousel-item.active {
+    opacity: 1 !important;
+    transition: opacity  .7s;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+@font-face {
+  font-family: 'Histora';
+       src: url('css/TheHistoriaDemo.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Rubik';
+    font-weight: normal;
+    font-style: normal;
+}
+
+.bawks {
+  border-radius: 3px;
+  box-shadow: 5px 5px 10px black;
+}
+
+.LL-grad {
+      /* background: linear-gradient(45deg, rgba(185,183,221,1) 0%, rgba(9,9,121,0.2) 50%, rgba(0,212,255,0.2) 100%);
+       background:linear-gradient(45deg, rgba(225,123,251,.3) 0%, rgba(9,9,121,0.2) 50%, rgba(0,212,255,0.3) 100%); */
+       background: linear-gradient(45deg, rgba(97, 47, 109, 0.67) 0%, rgba(18, 25, 51, 0.71) 50%, rgba(24, 68, 167, 0.62) 100%);
+}
+
+.LL-Shadow {
+  text-shadow:
+    0 1px 2px #00000073,
+    1px 2px 0 #c9c9c9,
+    1px 3px 0 #bbb,
+    2px 4px 0 #a5a5a5,
+    2px 5px 0 #6f6f6f,
+    3px 6px 1px rgb(0, 0, 0),
+    0px 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15);
+  }
+
+ .col-md-6 {
+   float: left;
+  }
+ .carousel-item {
+   text-align: center;
+  }
+body {
+  height: 100vh;
+  background: url('https://source.unsplash.com/featured/1920x1080/?fans') center repeat; /* https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80 */
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: 'Rubik', sans-serif;
+}
+
+h1, h2, h3, h4, i{
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  margin: 5px 0;
+}
+
+input{
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 1.4em;
+  border: none;
+}
+
+
+a {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  letter-spacing: .5px;
+  font-size:1.1em;
+}
+
+  b, strong {
+    font-weight: 700;
+    text-shadow: 0 1px 2px #00000073, 1px 2px 0 #c9c9c9, 1px 3px 0 #bbb, 2px 4px 0 #a5a5a5, 2px 5px 0 #6f6f6f, 3px 6px 1px rgb(0, 0, 0), 0px 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+}
+
+body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);}
+
+.NewsScan-feed{
+  width: 1400px;
+  list-style:none;
+  font-size: 33px;
+  text-align:left;
+
+}
+.LLcol{
+  height: 666px;
+  overflow: hidden;
+}
+.Upcoming_Events {
+  font-size: 50px;
+  font-family: "Historia";
+  color: #c20752;
+  text-shadow: 0px 0px 35.2px rgba(0, 36, 255, 0.3),0px 0px 44px rgba(228, 0, 255, 0.15),0px 0px 50px rgba(228, 0, 255, 0.09),3.28px 3.774px 3.06px rgba(0, 0, 0, 0.004);
+  -moz-transform: matrix( 17.9960930105583,0,0,12.0181609554785,0,0);
+  -webkit-transform: matrix( 17.9960930105583,0,0,12.0181609554785,0,0);
+  -ms-transform: matrix( 17.9960930105583,0,0,12.0181609554785,0,0);
+
+}
+
+</style>
+</head>
+
+<body class="background" style="background-color:none;">
+
+    <div class="container-fluid">
+    	<div class="row">
+    		<div style="background:none;height:auto;" class=" screen col-md-12">
+            <div class="play-container flex space-between">
+              <div class="white">SHOUT BOARD!</div>
+              <div class="white" style="">  <div id="viewers" ></div></div>
+              <div class="white"><span class="" id="MyClockDisplay"></span></div>
+            </div>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-3">
+    			<div class="row">
+    				<div class="col-md-12">
+    					<img alt="Logo" src="img/LefloreCountyLiveLogo.png" style="width: 444px;padding-left: 10px;">
+    				</div>
+    			</div>
+    			<div class="row center">
+    				<div class="col-md-12">
+              <div class="icon-holder bawks LL-grad" style="margin: 20px auto; width: 400px;">
+                <img src="img/LLBadge.png" style="position:absolute;top: 80px;left: 119px;opacity: .15;">
+                <iframe src="widget_clock.htm" style="width:400px;height:370px;overflow:hidden;opacity: .9;" scrolling="no" frameborder="0"></iframe>
+              </div>
+    				</div>
+    			</div>
+    			<div class="row">
+    				<div class="col-md-12" style="padding-left:40px;">
+                <div class="carousel slide carousel-fade" id="carousel-sponsors" data-ride="carousel" LL-include-html="sponsors.htm">
+
+              </div> <!-- END SPONSORS SLIDES -->
+    				</div>
+    			</div>
+    		</div>
+    		<div class="col-md-9">
+    			<div class="row">
+    				<div class="col-md-12">
+    				</div>
+    			</div>
+    			<div class="row">
+    				<div class="col-md-12 top">
+    				</div>
+    			</div>
+    			<div class="row">
+    				<div class="col-md-12">
+    					<div class="carousel slide" id="carousel-737827" data-ride="carousel">
+    						<ol class="carousel-indicators">
+    							<li data-slide-to="0" data-target="#carousel-737827" class="active"></li>
+
+    						</ol>
+    						<div class="carousel-inner bawks" style="height:850px">
+    							<!--div class="carousel-item active">
+                  </div - -   >
+                </div -->
+                  <!-- 1XXXXXXXXXXXXXXXXXX SLIDE XXXXXXXXXXXXXXXXXX -->
+    							<div class="carousel-item LL-grad LL-Shadow active" style="height: 850px;padding-top: 144px;">
+                    <!--div style="position: absolute; left: 50%;top:33px;"><span class="Upcoming_Events" style="font-family:'Histora';position: relative; left: -50%;">Community Events</span> </div -->
+                    <div style="position: absolute; left: 50%;top:33px;"><img alt="SlideTitle" src="img/Shoutboard.png" style="position: relative; left: -50%; "> </div>
+                    <div class="white news-items">
+                      <div id="events" class="LLcol" style=" overflow: auto; padding-right: 50px;">
+                          <!-- COMMUNITY EVENTS -->
+
+                        </div>
+                        <a href="#" id="bottom" style="visibility: hidden">Bottom</a>
+                    </div>
+    							</div>
+
+
+                </div> <!-- END MAIN CAROUSEL -->
+
+    						</div> <!-- a class="carousel-control-prev" href="#carousel-737827" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-737827" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a-->
+    					</div>
+    				</div>
+            <div class="row">
+    				<div class="col-md-12 top" style="margin-top: -9px;    height: 9px;    overflow: hidden;">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:1%; transition: width 0.5s;"></div>
+    				</div>
+    			</div>
+          <div class="row">
+            <div class="col-md-12">
+                  <p style="font-size: 70px;  padding-top: 18px;" LL-include-html="NewsTicker.htm"></p>
+            </div>
+            <div class="col-md-9">
+              <div class="text-center"><a style="color:#d3d3d312;" href="https://darksky.net/poweredby/">Powered by Dark Sky</a></div>
+            </div>
+          </div>
+    			</div>
+    		</div>
+    	</div>
+
+    </div> <!-- END CONTAINER FLUID or Extra Div?  -->
+
+         <script src="time.js?1"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+         <script>
+         // AUTOSCROLL EVENTS
+
+         // Get a reference to the div you want to auto-scroll.
+         var someElement = document.querySelector('#events');
+
+
+
+         // First, define a helper function.
+         function animateScroll(duration) {
+           var start = someElement.scrollTop;
+           var end = someElement.scrollHeight;
+           var change = end - start;
+           var increment = 20;
+           function easeInOut(currentTime, start, change, duration) {
+             // by Robert Penner
+             currentTime /= duration / 2;
+             if (currentTime < 1) {
+               return change / 2 * currentTime * currentTime + start;
+             }
+             currentTime -= 1;
+             return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
+           }
+           function animate(elapsedTime) {
+             elapsedTime += increment;
+             var position = easeInOut(elapsedTime, start, change, duration);
+             someElement.scrollTop = position;
+             if (elapsedTime < duration) {
+               setTimeout(function() {
+                 animate(elapsedTime);
+               }, increment)
+             }
+           }
+           animate(0);
+         }
+         // Here's our main callback function we passed to the observer
+         function scrollToBottom() {
+           var duration = 60000 // Or however many milliseconds you want to scroll to last
+           animateScroll(duration);
+         }
+         scrollToBottom();
+        </script>
+        <script>           includeHTML();         </script>
+      </body>
+</html>
