@@ -171,7 +171,8 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
 
     <div class="container-fluid">
     	<div class="row">
-    		<div style="background:none;height:auto;" class=" screen col-md-12">
+        <div style="background:none;height:auto;" class=" screen col-md-3"></div>
+    		<div style="background:none;height:auto;" class=" screen col-md-9">
             <div class="play-container flex space-between">
               <div class="white">SHOUT BOARD!</div>
               <div class="white" style="">  <div id="viewers" ></div></div>
@@ -180,25 +181,37 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
     		</div>
     	</div>
     	<div class="row">
-    		<div class="col-md-3">
+        <div class="col-md-3" style="margin-top: -20px; padding-left: 40px;">
     			<div class="row">
     				<div class="col-md-12">
-    					<img alt="Logo" src="img/LefloreCountyLiveLogo.png" style="width: 444px;padding-left: 10px;">
+    					<!-- img alt="Logo" src="img/LefloreCountyLiveLogo.png" style="width: 444px;padding-left: 10px;" -->
     				</div>
     			</div>
+
+          <div class="row"> <!-- THIS ROW IS VIDEO PREVIEW -->
+            <div class="col-md-12" style="margin: 0  auto 10px;">
+              <!-- CCTV GREEN CHROMA KEY -->
+              <div class="bawks LL-grad LL-Shadow" style="height: 200px;    padding: 10px;">
+                <div style="background-color: green;height: 100%;border-radius: 30px;"></div>
+              </div>
+              <!-- CCTV GREEN CHROMA KEY -->
+          </div>
+          </div>
+
     			<div class="row center">
     				<div class="col-md-12">
-              <div class="icon-holder bawks LL-grad" style="margin: 20px auto; width: 400px;">
+              <div class="icon-holder bawks LL-grad" style="margin: 10px auto;">
                 <img src="img/LLBadge.png" style="position:absolute;top: 80px;left: 119px;opacity: .15;">
-                <iframe src="widget_clock.htm" style="width:400px;height:370px;overflow:hidden;opacity: .9;" scrolling="no" frameborder="0"></iframe>
+                <iframe src="widget_clock.htm" style="height:370px;overflow:hidden;opacity: .9;width: 100%;" scrolling="no" frameborder="0"></iframe>
               </div>
     				</div>
     			</div>
-    			<div class="row">
-    				<div class="col-md-12" style="padding-left:40px;">
-                <div class="carousel slide carousel-fade" id="carousel-sponsors" data-ride="carousel" LL-include-html="sponsors.htm">
 
-              </div> <!-- END SPONSORS SLIDES -->
+    			<div class="row">
+    				<div class="col-md-12" style="margin: 10px auto;">
+              <!-- BEGIN SPONSORS SLIDES -->
+              <div class="carousel slide carousel-fade" id="carousel-sponsors" data-ride="carousel" LL-include-html="sponsors.htm"></div>
+              <!-- END SPONSORS SLIDES -->
     				</div>
     			</div>
     		</div>
@@ -227,6 +240,7 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
                     <!--div style="position: absolute; left: 50%;top:33px;"><span class="Upcoming_Events" style="font-family:'Histora';position: relative; left: -50%;">Community Events</span> </div -->
                     <div style="position: absolute; left: 50%;top:33px;"><img alt="SlideTitle" src="img/ShoutBoard.png" style="position: relative; left: -50%; "> </div>
                     <div class="white news-items">
+                      <h1> <br>THE SHOUT BOARD WILL ACTIVATE WHEN WE REACH 1,000 SUBSCRIBERS ON YOUTUBE.COM! PLEASE HIT THE SUBSCRIBE BUTTION AND LIKE/SHARE WITH YOUR FRIENDS! <br><br>HTTP://LEFLORE.LIVE <br> THANK YOU!!</h1>
                       <div id="events" class="LLcol" style=" overflow: auto; padding-right: 50px;">
                           <!-- COMMUNITY EVENTS -->
 
