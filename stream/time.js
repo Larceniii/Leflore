@@ -1,7 +1,7 @@
 
-$(function() {
-    $('body').hide().fadeIn(1500);
-});
+// $(function() {
+  //  $('body').hide().fadeIn(1500);
+// });
 
   function progress(timeleft, timetotal) {
       var current_percent = timeleft / timetotal * 100;
@@ -21,7 +21,7 @@ $(function() {
           }, 1000);
       }
     if(timeleft < 2) {
-        $("body").fadeOut(1500)
+      //  $("body").fadeOut(1500)
       }
   };
 
