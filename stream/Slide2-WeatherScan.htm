@@ -199,7 +199,7 @@
                  img = "https://source.unsplash.com/1920x1080/?cloudy";
                  icon = '<i class="wi wi-day-cloudy wi-lg"></i>';
                  iconSmall = '<i class="wi wi-day-cloudy wi-md"></i>';
-                 $('.icon-holder').css('margin-top', '20px');
+                 $('.icon-holder').css('padding-top', '40px');
                break;
                case "clear-night":
                  img = "https://source.unsplash.com/1920x1080/?clearsky";
@@ -858,9 +858,14 @@ body{text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
 
     			<div class="row center">
     				<div class="col-md-12">
-              <div class="icon-holder bawks LL-grad" style="margin: 10px auto;">
-                <img src="img/LLBadge.png" style="position:absolute;top: 80px;left: 119px;opacity: .15;">
-                <iframe src="widget_clock.htm" style="height:370px;overflow:hidden;opacity: .9;width: 100%;" scrolling="no" frameborder="0"></iframe>
+              <div class="icon-holder bawks LL-grad" style=" padding-top: 33px; ">
+                <img src="img/LLBadge.png" style="position:absolute;top: 80px;left: 90px;opacity: .1;">
+               <p class="main-icon LL-Shadow"><i class="wi wi-night-alt-partly-cloudy wi-lg LL-Shadow"></i></p>
+               <h4 class="current-summary white" style="padding:10px"></h4>
+               <h1 class="main-temp temp white"><i class="wi wi-thermometer white"></i><strong class="temp-val white" style="font-size:1.3em"> 34</strong></h1>
+                 <!--h3><span class="main-date white">date </span></h3-->
+                 <h2 class="white" style="padding: 5px 70px;"><span class="" id="MyClockDisplay"></span></h2>
+
               </div>
     				</div>
     			</div>
